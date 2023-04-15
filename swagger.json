@@ -12,10 +12,6 @@
         "description": "API for related NFT and Token from top address"
       },
       {
-        "name": "token",
-        "description": "API for cached token label from top address"
-      },
-      {
         "name": "whale",
         "description": "API for cached whale metrics from top address"
       }
