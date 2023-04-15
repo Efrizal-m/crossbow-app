@@ -27,6 +27,167 @@
       }
     ],
     "apis": ["./routes/*.js"],
-    "paths": {},
-    "definitions": {}
+    "paths": {
+        "/related/nft/{project}": {
+            "get": {
+              "tags": ["related"],
+              "description": "Retrieve related NFT holding from top address by flipside adn helius API",
+              "parameters":
+                [
+                  {
+                    "name": "project",
+                    "in": "path",
+                    "required": true,
+                    "description": "project name that we want to find",
+                    "type": "string",
+                    "example": "cega"
+                  }
+                ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                  "description": "OK"
+                },
+                "404": {
+                  "description": "Data Error/Not Found/Expired"
+                },
+                "502": {
+                    "description": "Something went error"
+                }      
+              }
+            } 
+          },
+    
+          "/related/token/{project}": {
+            "get": {
+              "tags": ["related"],
+              "description": "Retrieve related Token holding from top address by flipside API and helius RPC",
+              "parameters":
+                [
+                  {
+                    "name": "project",
+                    "in": "path",
+                    "required": true,
+                    "description": "project name that we want to find",
+                    "type": "string",
+                    "example": "cega"
+                  }
+                ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                    "description": "OK"
+                  },
+                  "404": {
+                    "description": "Data Error/Not Found/Expired"
+                  },
+                  "502": {
+                      "description": "Something went error"
+                  }      
+                }
+            } 
+          },
+    
+          "/related/nft": {
+            "post": {
+              "tags": ["related"],
+              "description": "Set related NFT Holding from top address",
+              "parameters":
+                [
+                  {
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "description": "project name that we want to update",
+                    "schema": {
+                        "$ref": "#/definitions/postProject"
+                      }
+                    }
+                ],
+              "consumes": ["application/json"],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                    "description": "related NFT for project cega is exists and updated | related NFT holder updated to new data"
+                },
+                "404": {
+                  "description": "Data Not Found, Please check again your project name"
+                }  
+              }
+            } 
+          },
+          "/related/token": {
+            "post": {
+              "tags": ["related"],
+              "description": "Set related Token Holding from top address",
+              "parameters":
+                [
+                  {
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "description": "project name that we want to update",
+                    "schema": {
+                        "$ref": "#/definitions/postProject"
+                      }
+                    }
+                ],
+              "consumes": ["application/json"],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                    "description": "related Token for project cega is exists and updated | related Token holder updated to new data"
+                },
+                "404": {
+                  "description": "Data Not Found, Please check again your project name"
+                }  
+              }
+            } 
+          },
+          "/whale/metrics/{project}": {
+            "get": {
+              "tags": ["whale"],
+              "description": "Retrieve cached whale metrics from flipside",
+              "parameters":
+              [
+                {
+                  "name": "project",
+                  "in": "path",
+                  "required": true,
+                  "description": "project name that we want to find",
+                  "type": "string",
+                  "example": "cega"
+                }
+              ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                    "description": "OK"
+                  },
+                "404": {
+                    "description": "Data Error/Not Found/Expired"
+                  }
+                }
+            } 
+          }    
+    },
+    "definitions": {
+        "Empty": {
+        },
+        "postProject": {
+          "required": [
+            "project"
+          ],
+          "type": "object",
+          "properties": {
+            "project": {
+              "description":"project name of that we want to find",
+              "type": "string"
+            }
+          },
+          "example": {
+            "project":"uniswap-v3"
+          }
+        }
+    }
 }
